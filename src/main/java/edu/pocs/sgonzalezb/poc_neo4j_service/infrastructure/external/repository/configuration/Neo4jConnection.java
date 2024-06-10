@@ -1,4 +1,4 @@
-package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.external;
+package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.external.repository.configuration;
 
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+//@Profile("!test")
 public class Neo4jConnection {
 
     @Value("${neo4j.datasources.uri}")
@@ -19,10 +20,9 @@ public class Neo4jConnection {
 
     @Bean
     public Driver driver() {
-        try (final var driver = GraphDatabase.driver(this.uri, AuthTokens.basic(this.user, this.password))) {
-            driver.verifyConnectivity();
+        final var driver = GraphDatabase.driver(this.uri, AuthTokens.basic(this.user, this.password));
+        driver.verifyConnectivity();
 
-            return driver;
-        }
+        return driver;
     }
 }
