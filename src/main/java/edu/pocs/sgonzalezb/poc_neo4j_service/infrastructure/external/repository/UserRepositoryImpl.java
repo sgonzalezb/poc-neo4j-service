@@ -17,10 +17,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User findUserByName(final String name) {
+        final String query = STR."MATCH (user: User {name: '\{name}'}) RETURN user";
 
         try (final Session session = this.driver.session()) {
 
-            return UserMapper.fromMap(session.run("MATCH (user: User {name: 'Alice'}) RETURN user")
+            return UserMapper.fromMap(session.run(query)
                     .single()
                     .get("user")
                     .asMap());
@@ -30,10 +31,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<String> findDependentsNamesByUserName(final String name) {
+        final String query = STR."MATCH (user:User {name: '\{name}'})-[r:SUPERVISES]->(u:User) RETURN u.name as name";
 
         try (final Session session = this.driver.session()) {
-
-            return session.run("MATCH (user:User {name: 'David'})-[r:SUPERVISES]->(u:User) RETURN u.name as name")
+            return session.run(query)
                     .stream()
                     .map(record -> record.get("name").asString())
                     .toList();
@@ -42,10 +43,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public String findCompanyNameByUserName(final String name) {
+        final String query = STR."MATCH (user:User {name: '\{name}'})-[r:WORKS_FOR]->(c:Company) RETURN c.name as name";
 
         try (final Session session = this.driver.session()) {
 
-            return session.run("MATCH (user:User {name: 'Alice'})-[r:WORKS_FOR]->(c:Company) RETURN c.name as name")
+            return session.run(query)
                     .single()
                     .get("name")
                     .asString();
@@ -55,10 +57,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public String findDepartmentNameByUserName(final String name) {
+        final String query = STR."MATCH (user:User {name: '\{name}'})-[r:BELONGS_TO]->(d:Department) RETURN d.name as name";
 
         try (final Session session = this.driver.session()) {
 
-            return session.run("MATCH (user:User {name: 'Charlie'})-[r:BELONGS_TO]->(d:Department) RETURN d.name as name")
+            return session.run(query)
                     .single()
                     .get("name")
                     .asString();
@@ -67,9 +70,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public String findProjectNameByUserName(final String name) {
+        final String query = STR."MATCH (user:User {name: '\{name}'})-[r:ASSIGNED_TO]->(p:Project) RETURN p.name as name";
 
         try (final Session session = this.driver.session()) {
-            return session.run("MATCH (user:User {name: 'Charlie'})-[r:ASSIGNED_TO]->(p:Project) RETURN p.name as name")
+            return session.run(query)
                     .single()
                     .get("name")
                     .asString();
