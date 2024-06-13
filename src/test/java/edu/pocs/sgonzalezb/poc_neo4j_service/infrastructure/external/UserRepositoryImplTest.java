@@ -8,6 +8,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
+import static edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.UserObjectMother.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Testcontainers
@@ -20,43 +21,43 @@ class UserRepositoryImplTest extends Neo4jTestContainersConfig {
     @Test
     void when_username_is_passed_and_exists_should_return_the_name_of_the_user() {
 
-        final String userName = this.userRepository.findUserByName("Alice").name();
+        final String userName = this.userRepository.findUserByName(ALICE_NAME).name();
 
-        assertEquals("Alice", userName);
+        assertEquals(ALICE_NAME, userName);
     }
 
 
     @Test
     void when_username_is_passed_and_exists_should_return_the_names_of_users_that_depend_on_it() {
 
-        final List<String> dependentsNamesByUserName = this.userRepository.findDependentsNamesByUserName("David");
+        final List<String> dependentsNamesByUserName = this.userRepository.findDependentsNamesByUserName(DAVID_NAME);
 
-        assertEquals(List.of("Charlie"), dependentsNamesByUserName);
+        assertEquals(List.of(CHARLIE_NAME), dependentsNamesByUserName);
     }
 
     @Test
     void when_username_is_passed_and_exists_should_return_the_name_of_the_company_is_working() {
 
-        final String corporationName = this.userRepository.findCompanyNameByUserName("Alice");
+        final String corporationName = this.userRepository.findCompanyNameByUserName(ALICE_NAME);
 
-        assertEquals("TechCorp", corporationName);
+        assertEquals(ALICE_COMPANY, corporationName);
     }
 
     @Test
     void when_username_is_passed_and_exists_should_return_the_department_name_which_belongs() {
 
-        final String departmentName = this.userRepository.findDepartmentNameByUserName("Charlie");
+        final String departmentName = this.userRepository.findDepartmentNameByUserName(CHARLIE_NAME);
 
-        assertEquals("Marketing", departmentName);
+        assertEquals(CHARLIE_DEPARTMENT_NAME, departmentName);
 
     }
 
     @Test
     void when_username_is_passed_and_exists_should_return_the_project_name_which_belongs() {
 
-        final String projectName = this.userRepository.findProjectNameByUserName("Charlie");
+        final String projectName = this.userRepository.findProjectNameByUserName(CHARLIE_NAME);
 
 
-        assertEquals("Project Beta", projectName);
+        assertEquals(CHARLIE_PROJECT_NAME, projectName);
     }
 }
