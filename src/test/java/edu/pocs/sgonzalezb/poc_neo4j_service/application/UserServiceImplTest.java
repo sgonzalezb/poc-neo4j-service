@@ -44,13 +44,13 @@ class UserServiceImplTest {
 
         //Given
         given(this.userRepository.findDependentsNamesByUserName(DAVID_NAME))
-                .willReturn(List.of(CHARLIE_PROJECT_NAME));
+                .willReturn(List.of(CHARLIE_NAME));
 
         ///When
         final List<String> dependentsUsers = this.userService.findDependentsNamesByUserName(DAVID_NAME);
 
         //Then
-        then(dependentsUsers).isEqualTo(List.of(CHARLIE_PROJECT_NAME));
+        then(dependentsUsers).isEqualTo(List.of(CHARLIE_NAME));
     }
 
     @Test

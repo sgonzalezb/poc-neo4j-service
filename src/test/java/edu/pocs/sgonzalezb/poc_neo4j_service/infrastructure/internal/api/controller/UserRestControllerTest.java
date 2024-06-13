@@ -2,6 +2,7 @@ package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.contro
 
 import edu.pocs.sgonzalezb.poc_neo4j_service.PocNeo4jServiceApplication;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.configuration.Neo4jTestContainersConfig;
+import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDependentsDto;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +16,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Map;
 
+import static edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.UserObjectMother.ALICE_NAME;
+import static edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.UserObjectMother.DAVID_NAME;
 import static edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.UserDtoObjectMother.createAliceUserDto;
+import static edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.UserDtoObjectMother.createDavidUserDependentsDto;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Testcontainers
@@ -38,7 +42,7 @@ class UserRestControllerTest extends Neo4jTestContainersConfig {
                 HttpMethod.GET,
                 entity,
                 UserDto.class,
-                Map.of("name", "Alice"));
+                Map.of("name", ALICE_NAME));
 
         assertEquals(createAliceUserDto(), response.getBody());
     }
@@ -46,6 +50,16 @@ class UserRestControllerTest extends Neo4jTestContainersConfig {
     @Test
     void given_valid_username_then_should_return_the_names_of_users_that_depend_on_it() {
 
+        final HttpEntity<String> entity = new HttpEntity<>(null, this.headers);
+
+        final ResponseEntity<UserDependentsDto> response = this.restTemplate.exchange(
+                this.createURLWithPort("/users/{name}/dependents"),
+                HttpMethod.GET,
+                entity,
+                UserDependentsDto.class,
+                Map.of("name", DAVID_NAME));
+
+        assertEquals(createDavidUserDependentsDto(), response.getBody());
     }
 
     @Test

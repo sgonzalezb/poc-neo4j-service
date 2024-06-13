@@ -2,7 +2,8 @@ package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.contro
 
 
 import edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.service.UserService;
-import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.UserDtoMapper;
+import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.DtoMapper;
+import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDependentsDto;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,12 @@ public class UserRestController {
     @GetMapping("/{name}")
     public UserDto findUserByUserName(
             @PathVariable("name") final String name) {
-        return UserDtoMapper.fromModel(this.userService.findUserByName(name));
+        return DtoMapper.fromModel(this.userService.findUserByName(name));
+    }
+
+    @GetMapping("/{name}/dependents")
+    public UserDependentsDto findDependentsNamesByUserName(
+            @PathVariable("name") final String name) {
+        return DtoMapper.fromModel(this.userService.findDependentsNamesByUserName(name));
     }
 }

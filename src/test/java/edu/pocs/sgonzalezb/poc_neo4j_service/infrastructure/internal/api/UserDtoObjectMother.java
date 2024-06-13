@@ -1,8 +1,10 @@
 package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api;
 
+import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDependentsDto;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class UserDtoObjectMother {
 
@@ -28,10 +30,7 @@ public class UserDtoObjectMother {
                 ALICE_ROLE);
     }
 
-    public static UserDto createDavidUserDto() {
-        return new UserDto(DAVID_NAME,
-                DAVID_MAIL,
-                DAVID_HIRE_DATE,
-                DAVID_ROLE);
+    public static UserDependentsDto createDavidUserDependentsDto() {
+        return new UserDependentsDto(List.of(CHARLIE_NAME));
     }
 }
