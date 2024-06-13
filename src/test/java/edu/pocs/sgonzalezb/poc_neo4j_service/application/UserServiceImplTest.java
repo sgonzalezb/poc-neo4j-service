@@ -8,6 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.UserObjectMother.createAliceUser;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;
@@ -40,6 +42,18 @@ class UserServiceImplTest {
     @Test
     void given_valid_username_then_should_return_the_names_of_users_that_depend_on_it() {
 
+        //Expected
+        final List<String> expectedDependents = List.of("Charlie");
+
+        //Given
+        given(this.userRepository.findDependentsNamesByUserName("David"))
+                .willReturn(expectedDependents);
+
+        ///When
+        final List<String> dependentsUsers = this.userService.findDependentsNamesByUserName("David");
+
+        //Then
+        then(dependentsUsers).isEqualTo(expectedDependents);
     }
 
     @Test

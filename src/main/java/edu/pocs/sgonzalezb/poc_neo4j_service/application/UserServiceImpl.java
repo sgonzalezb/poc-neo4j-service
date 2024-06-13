@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<String> findDependentsNamesByUserName(final String name) {
-        return List.of();
+        return this.userRepository.findDependentsNamesByUserName(name);
     }
 
     @Override
