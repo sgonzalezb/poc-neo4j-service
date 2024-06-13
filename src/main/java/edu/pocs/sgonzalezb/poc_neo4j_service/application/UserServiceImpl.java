@@ -26,16 +26,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String findCompanyNameByUserName(final String name) {
-        return "";
+        return this.userRepository.findCompanyNameByUserName(name);
     }
 
     @Override
     public String findDepartmentNameByUserName(final String name) {
-        return "";
+        return this.userRepository.findDepartmentNameByUserName(name);
     }
 
     @Override
     public String findProjectNameByUserName(final String name) {
-        return "";
+        return this.userRepository.findProjectNameByUserName(name);
     }
 }

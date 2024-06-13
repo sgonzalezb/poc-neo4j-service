@@ -59,15 +59,52 @@ class UserServiceImplTest {
     @Test
     void given_valid_username_then_should_return_the_name_of_the_company_is_working() {
 
+        //Expected
+        final String aliceCompanyName = "TechCorp";
+
+        //Given
+        given(this.userRepository.findCompanyNameByUserName("Alice"))
+                .willReturn(aliceCompanyName);
+
+        ///When
+        final String companyName = this.userService.findCompanyNameByUserName("Alice");
+
+        //Then
+        then(companyName).isEqualTo(aliceCompanyName);
     }
 
     @Test
     void given_valid_username_then_should_return_the_department_name_which_belongs() {
 
+        //Expected
+        final String charlieDepartmentName = "Marketing";
+
+        //Given
+        given(this.userRepository.findDepartmentNameByUserName("Charlie"))
+                .willReturn(charlieDepartmentName);
+
+        ///When
+        final String dependentsUsers = this.userService.findDepartmentNameByUserName("Charlie");
+
+        //Then
+        then(dependentsUsers).isEqualTo(charlieDepartmentName);
     }
 
     @Test
     void given_valid_username_then_should_return_the_project_name_which_belongs() {
+
+        //Expected
+        final String charlieProjectName = "ProjectBeta";
+
+        //Given
+        given(this.userRepository.findProjectNameByUserName("Charlie"))
+                .willReturn(charlieProjectName);
+
+        ///When
+        final String dependentsUsers = this.userService.findProjectNameByUserName("Charlie");
+
+        //Then
+        then(dependentsUsers).isEqualTo(charlieProjectName);
     }
 
 }
