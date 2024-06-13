@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-//@Profile("!test")
 public class Neo4jConnection {
 
     @Value("${neo4j.datasources.uri}")

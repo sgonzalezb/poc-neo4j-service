@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface UserService {
 
-    User findUserByName();
+    User findUserByName(String name);
 
-    List<String> findDependentsNamesByUserName();
+    List<String> findDependentsNamesByUserName(String name);
 
-    String findCompanyNameByUserName();
+    String findCompanyNameByUserName(String name);
 
-    String findDepartmentNameByUserName();
+    String findDepartmentNameByUserName(String name);
 
-    String findProjectNameByUserName();
+    String findProjectNameByUserName(String name);
 }
