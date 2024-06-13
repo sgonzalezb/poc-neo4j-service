@@ -1,5 +1,6 @@
 package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api;
 
+import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserCompanyNameDto;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDependentsDto;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDto;
 
@@ -32,5 +33,9 @@ public class UserDtoObjectMother {
 
     public static UserDependentsDto createDavidUserDependentsDto() {
         return new UserDependentsDto(List.of(CHARLIE_NAME));
+    }
+
+    public static UserCompanyNameDto createAliceUserCompanyNameDto() {
+        return new UserCompanyNameDto(ALICE_COMPANY);
     }
 }

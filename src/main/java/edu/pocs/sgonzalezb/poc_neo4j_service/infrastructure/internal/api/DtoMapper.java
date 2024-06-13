@@ -1,6 +1,7 @@
 package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api;
 
 import edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.model.User;
+import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserCompanyNameDto;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDependentsDto;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDto;
 
@@ -17,5 +18,10 @@ public interface DtoMapper {
     static UserDependentsDto fromModel(final List<String> dependentsUsernames) {
 
         return new UserDependentsDto(dependentsUsernames);
+    }
+
+    static UserCompanyNameDto fromModel(final String companyUsername) {
+
+        return new UserCompanyNameDto(companyUsername);
     }
 }

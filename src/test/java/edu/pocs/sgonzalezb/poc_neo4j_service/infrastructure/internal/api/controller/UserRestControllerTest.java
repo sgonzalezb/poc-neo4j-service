@@ -2,6 +2,7 @@ package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.contro
 
 import edu.pocs.sgonzalezb.poc_neo4j_service.PocNeo4jServiceApplication;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.configuration.Neo4jTestContainersConfig;
+import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserCompanyNameDto;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDependentsDto;
 import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.model.UserDto;
 import org.junit.jupiter.api.Test;
@@ -18,8 +19,7 @@ import java.util.Map;
 
 import static edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.UserObjectMother.ALICE_NAME;
 import static edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.UserObjectMother.DAVID_NAME;
-import static edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.UserDtoObjectMother.createAliceUserDto;
-import static edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.UserDtoObjectMother.createDavidUserDependentsDto;
+import static edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.UserDtoObjectMother.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Testcontainers
@@ -64,7 +64,16 @@ class UserRestControllerTest extends Neo4jTestContainersConfig {
 
     @Test
     void given_valid_username_then_should_return_the_name_of_the_company_is_working() {
+        final HttpEntity<String> entity = new HttpEntity<>(null, this.headers);
 
+        final ResponseEntity<UserCompanyNameDto> response = this.restTemplate.exchange(
+                this.createURLWithPort("/users/{name}/company/name"),
+                HttpMethod.GET,
+                entity,
+                UserCompanyNameDto.class,
+                Map.of("name", ALICE_NAME));
+
+        assertEquals(createAliceUserCompanyNameDto(), response.getBody());
     }
 
     @Test
