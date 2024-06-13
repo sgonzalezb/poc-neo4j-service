@@ -24,7 +24,7 @@ public class UserRestController {
         return DtoMapper.fromModel(this.userService.findUserByName(name));
     }
 
-    @GetMapping("/{name}/dependents")
+    @GetMapping("/{name}/dependents/name")
     public UserDependentsDto findDependentsNamesByUserName(
             @PathVariable("name") final String name) {
         return DtoMapper.fromModel(this.userService.findDependentsNamesByUserName(name));

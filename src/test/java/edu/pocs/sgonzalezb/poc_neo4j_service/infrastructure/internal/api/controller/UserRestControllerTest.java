@@ -53,7 +53,7 @@ class UserRestControllerTest extends Neo4jTestContainersConfig {
         final HttpEntity<String> entity = new HttpEntity<>(null, this.headers);
 
         final ResponseEntity<UserDependentsDto> response = this.restTemplate.exchange(
-                this.createURLWithPort("/users/{name}/dependents"),
+                this.createURLWithPort("/users/{name}/dependents/name"),
                 HttpMethod.GET,
                 entity,
                 UserDependentsDto.class,
