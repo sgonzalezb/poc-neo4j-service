@@ -4,17 +4,18 @@ import edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.model.User;
 import edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
-
+import static edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.UserObjectMother.createAliceUser;
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
+
+    private final static User ALICE_USER = createAliceUser();
 
     @Mock
     private UserRepository userRepository;
@@ -24,15 +25,15 @@ class UserServiceImplTest {
     @Test
     void given_valid_username_then_should_return_the_name_of_the_user() {
 
-        //FIXME: apply ObjectMother pattern for test
-        final User expected = new User("Alice", "alice@techcorp.com", LocalDate.parse("2022-01-15"), "Engineer");
+        //Given
+        given(this.userRepository.findUserByName("Alice"))
+                .willReturn(ALICE_USER);
 
-        BDDMockito.given(this.userRepository.findUserByName("Alice"))
-                .willReturn(expected);
+        ///When
+        final User user = this.userService.findUserByName("Alice");
 
-        final User alice = this.userService.findUserByName("Alice");
-
-        then(alice).isEqualTo(expected);
+        //Then
+        then(user).isEqualTo(ALICE_USER);
     }
 
 
