@@ -36,4 +36,10 @@ public class UserRestController {
             @PathVariable("name") final String name) {
         return DtoMapper.fromModel(this.userService.findCompanyNameByUserName(name));
     }
+
+    @GetMapping("/{name}/department/name")
+    public String findDepartmentNameByUserName(
+            @PathVariable("name") final String name) {
+        return this.userService.findDepartmentNameByUserName(name);
+    }
 }
