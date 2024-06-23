@@ -1,4 +1,4 @@
-package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.external;
+package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.configuration;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

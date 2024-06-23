@@ -1,6 +1,7 @@
 package edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.external;
 
 import edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.repository.UserRepository;
+import edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.configuration.Neo4jTestContainersConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
