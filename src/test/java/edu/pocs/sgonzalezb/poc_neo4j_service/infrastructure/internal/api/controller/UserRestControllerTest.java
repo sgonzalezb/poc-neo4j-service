@@ -17,8 +17,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Map;
 
-import static edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.UserObjectMother.ALICE_NAME;
-import static edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.UserObjectMother.DAVID_NAME;
+import static edu.pocs.sgonzalezb.poc_neo4j_service.domain.user.UserObjectMother.*;
 import static edu.pocs.sgonzalezb.poc_neo4j_service.infrastructure.internal.api.UserDtoObjectMother.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -78,6 +77,17 @@ class UserRestControllerTest extends Neo4jTestContainersConfig {
 
     @Test
     void given_valid_username_then_should_return_the_department_name_which_belongs() {
+        final HttpEntity<String> entity = new HttpEntity<>(null, this.headers);
+
+        final ResponseEntity<String> response = this.restTemplate.exchange(
+                this.createURLWithPort("/users/{name}/department/name"),
+                HttpMethod.GET,
+                entity,
+                String.class,
+                Map.of("name", CHARLIE_NAME)
+        );
+
+        assertEquals(CHARLIE_DEPARTMENT_NAME, response.getBody());
 
     }
 
