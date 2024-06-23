@@ -42,4 +42,10 @@ public class UserRestController {
             @PathVariable("name") final String name) {
         return this.userService.findDepartmentNameByUserName(name);
     }
+
+    @GetMapping("/{name}/project/name")
+    public String findProjectNameByUserName(
+            @PathVariable("name") final String name) {
+        return this.userService.findProjectNameByUserName(name);
+    }
 }
