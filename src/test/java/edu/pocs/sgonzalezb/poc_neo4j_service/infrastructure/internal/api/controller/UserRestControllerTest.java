@@ -93,6 +93,17 @@ class UserRestControllerTest extends Neo4jTestContainersConfig {
 
     @Test
     void given_valid_username_then_should_return_the_project_name_which_belongs() {
+        final HttpEntity<String> entity = new HttpEntity<>(null, this.headers);
+
+        final ResponseEntity<String> response = this.restTemplate.exchange(
+                this.createURLWithPort("/users/{name}/project/name"),
+                HttpMethod.GET,
+                entity,
+                String.class,
+                Map.of("name", CHARLIE_NAME)
+        );
+
+        assertEquals(CHARLIE_PROJECT_NAME, response.getBody());
 
     }
 
