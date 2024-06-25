@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 10s #How frequently scrapes metrics
+  evaluation_interval: 10s  #How frequently evaluate rules for alerting and registry
+  external_labels:
+    monitor: 'poc-neo4j' #Define the monitor of the metrics collected
+  scrape_timeout: 10s
+scrape_configs:
+  - job_name: "prometheus"
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /actuator/prometheus # By default, it's going to /metrics path, it can be changed here!
+    static_configs:
+      - targets: [ 'host.docker.internal:8080' ] #Define the host machine port where te service is running by default is scraping to {host}/metrics
+        labels:
+          env: local
+          region: eu-esp-ib
+

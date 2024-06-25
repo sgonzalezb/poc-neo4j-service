@@ -1,7 +1,16 @@
 spring:
   application:
     name: poc-neo4j-service
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, shutdown, loggers, prometheus, metrics
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
 neo4j:
   datasources:
     uri: bolt://localhost:7687
