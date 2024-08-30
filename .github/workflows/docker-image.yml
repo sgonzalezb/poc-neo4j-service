@@ -13,16 +13,13 @@ jobs:
       - name: Clone repository on linux machine
         uses: actions/checkout@v4
 
-      - name: Extract version from pom.xml
+      - name: Extract version and artifacatId from pom.xml and asign to ENV 
         id: extract_version
         run: |
+          ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "DOCKER_IMAGE_NAME=$ARTIFACT_ID" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Set environment variables
-        id: set-env
-        run: |
-          echo "DOCKER_IMAGE_NAME=poc-neo4j-service" >> $GITHUB_ENV
 
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
