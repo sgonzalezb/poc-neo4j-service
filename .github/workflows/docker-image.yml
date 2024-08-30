@@ -23,7 +23,7 @@ jobs:
       - name: Login Docker Hub
         id: docker-hub
         env:
-          dockerImageName: fakeHack
+          dockerImageName: poc-neo4j-service
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: docker login -u $username -p $password
