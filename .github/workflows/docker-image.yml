@@ -23,13 +23,13 @@ jobs:
       - name: Login Docker Hub
         id: docker-hub
         env:
-          dockerImageName: fakeHack
+          dockerImageName: poc-neo4j-service
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: docker login -u $username -p $password
       - name: Build Docker Image
         id: build-docker-image
-        run: ls -la ; docker build . -f Dockerfile -t $dockerImageName:1.0.0
+        run: docker build -t $dockerImageName:1.0.0
       - name: Post Docker Image to Docker Hub
         id: push-docker-image
         run: docker push $dockerImageName:$GITHUB_ENV
