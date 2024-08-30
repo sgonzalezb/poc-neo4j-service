@@ -32,4 +32,4 @@ jobs:
         run: docker build -t poc-neo4j-service:1.0.0 ./
       - name: Post Docker Image to Docker Hub
         id: push-docker-image
-        run: docker push poc-neo4j-service:$GITHUB_ENV
+        run: docker push randomhacking/poc-neo4j-service:1.0.0
