@@ -29,9 +29,9 @@ jobs:
         run: docker login -u $username -p $password
       - name: Build Docker Image
         id: build-docker-image
-        run: docker build -t poc-neo4j-service:1.0.0 .
+        run: docker build -t randomhacking/poc-neo4j-service:1.0.0 .
       - name: Post Docker Image to Docker Hub
         id: push-docker-image
-        run: docker push randomhacking/poc-neo4j-service:latest
+        run: docker push randomhacking/poc-neo4j-service:1.0.0
         
 
